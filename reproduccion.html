@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Centurion Wagner, A., Ferragutti, S., Santillan, N.">
+
+<title>Teléfonos Inteligentes e Impacto en la Vinculación Social</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="reproduccion_files/libs/clipboard/clipboard.min.js"></script>
+<script src="reproduccion_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="reproduccion_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="reproduccion_files/libs/quarto-html/popper.min.js"></script>
+<script src="reproduccion_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="reproduccion_files/libs/quarto-html/anchor.min.js"></script>
+<link href="reproduccion_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="reproduccion_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="reproduccion_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="reproduccion_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="reproduccion_files/libs/bootstrap/bootstrap-5f42db8323589414c76126d14b8033ae.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Teléfonos Inteligentes e Impacto en la Vinculación Social</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Centurion Wagner, A., Ferragutti, S., Santillan, N. </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="reproducción-de-resultados" class="level2">
+<h2 class="anchored" data-anchor-id="reproducción-de-resultados">Reproducción de Resultados</h2>
+<p>Este análisis intenta reproducir los resultados del artículo <a href="https://psycnet.apa.org/fulltext/2024-48810-001.pdf"><em>Smartphones Undermine Social Connectedness More in Men Than Women: A Mini Mega-Analysis</em></a> mediante los script de análisis y los datos publicados en <a href="https://osf.io/x73m9/files/osfstorage">osf.io/x73m9</a> y también verificar el cumplimiento del pre-registro realizado en <a href="https://osf.io/je4sm/overview">osf.io/je4sm</a></p>
+<section id="bibliotecas-necesarias" class="level3">
+<h3 class="anchored" data-anchor-id="bibliotecas-necesarias">Bibliotecas necesarias</h3>
+<p>Este script usa la biblioteca <em>haven</em> para la importación de archivos de datos .sav.</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: haven</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: tidyverse</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.2.1     ✔ readr     2.2.0
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ ggplot2   4.0.3     ✔ tibble    3.3.1
+✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+✔ purrr     1.2.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
+Loading required package: lm.beta
+
+Loading required package: performance
+
+Loading required package: lmtest
+
+Loading required package: zoo
+
+
+Attaching package: 'zoo'
+
+
+The following objects are masked from 'package:base':
+
+    as.Date, as.Date.numeric
+
+
+Loading required package: car
+
+Loading required package: carData
+
+
+Attaching package: 'car'
+
+
+The following object is masked from 'package:dplyr':
+
+    recode
+
+
+The following object is masked from 'package:purrr':
+
+    some
+
+
+Loading required package: effectsize</code></pre>
+</div>
+</div>
+</section>
+<section id="importación-de-datos" class="level3">
+<h3 class="anchored" data-anchor-id="importación-de-datos">Importación de Datos</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mega_analysis <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">"articles/x73m9-osfstorage-archive-mega/MegaAnalysisMaster.sav"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>tech_directions <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">"articles/x73m9-osfstorage-archive-mega/Tech_Directions_Tight.sav"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Conversión de variables cualitativas a factores</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>mega_analysis<span class="sc">$</span>Gender <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mega_analysis<span class="sc">$</span>Gender)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>mega_analysis<span class="sc">$</span>Has_Phone <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mega_analysis<span class="sc">$</span>Has_Phone)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>mega_analysis<span class="sc">$</span>Gender <span class="ot">&lt;-</span> <span class="fu">recode_factor</span>(mega_analysis<span class="sc">$</span>Gender, <span class="st">`</span><span class="at">0</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Female"</span>, <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Male"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>mega_analysis<span class="sc">$</span>Has_Phone<span class="ot">&lt;-</span> <span class="fu">recode_factor</span>(mega_analysis<span class="sc">$</span>Has_Phone, <span class="st">`</span><span class="at">0</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"No Phone"</span>, <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Phone"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>mega_analysis<span class="sc">$</span>ParadigmsCombined_Factor <span class="ot">&lt;-</span> <span class="fu">recode_factor</span>(mega_analysis<span class="sc">$</span>ParadigmsCombined, <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Tech Directions"</span>, <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Strong Ties Meal"</span>, <span class="st">`</span><span class="at">3</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Waiting Room Alone"</span>, <span class="st">`</span><span class="at">4</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Waiting Room Together"</span>, <span class="st">`</span><span class="at">5</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Parents with Childen"</span>, <span class="st">`</span><span class="at">6</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Weak Ties Meal"</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>mega_analysis_graphs <span class="ot">&lt;-</span> <span class="fu">subset</span>(mega_analysis, Gender <span class="sc">==</span> <span class="st">"Female"</span> <span class="sc">|</span> Gender <span class="sc">==</span> <span class="st">"Male"</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>mega_analysis_graphs <span class="ot">&lt;-</span> <span class="fu">subset</span>(mega_analysis_graphs, Has_Phone <span class="sc">==</span> <span class="st">"No Phone"</span><span class="sc">|</span>  Has_Phone <span class="sc">==</span> <span class="st">"Phone"</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>tech_directions<span class="sc">$</span>Gender <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(tech_directions<span class="sc">$</span>Gender)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>tech_directions<span class="sc">$</span>Has_Phone <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(tech_directions<span class="sc">$</span>Has_Phone)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>tech_directions<span class="sc">$</span>Gender <span class="ot">&lt;-</span> <span class="fu">recode_factor</span>(tech_directions<span class="sc">$</span>Gender, <span class="st">`</span><span class="at">0</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Female"</span>, <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Male"</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>tech_directions<span class="sc">$</span>Has_Phone<span class="ot">&lt;-</span> <span class="fu">recode_factor</span>(tech_directions<span class="sc">$</span>Has_Phone, <span class="st">`</span><span class="at">0</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"No Phone"</span>, <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Phone"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="reproducción-de-resultados-del-informe" class="level2">
+<h2 class="anchored" data-anchor-id="reproducción-de-resultados-del-informe">Reproducción de Resultados del Informe</h2>
+<section id="numero-de-observaciones" class="level3">
+<h3 class="anchored" data-anchor-id="numero-de-observaciones">Numero de observaciones</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>model_data <span class="ot">&lt;-</span> mega_analysis[, <span class="fu">c</span>(<span class="st">"SocialConnection_Std"</span>, <span class="st">"Age"</span>, <span class="st">"Has_Phone"</span>, <span class="st">"Gender"</span>, <span class="st">"ParadigmsCombined_Factor"</span>)]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">data.frame</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">todos=</span><span class="fu">c</span>(<span class="fu">nrow</span>(model_data)),</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">casos_completos=</span><span class="fu">c</span>(<span class="fu">sum</span>(<span class="fu">complete.cases</span>(model_data))),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">casos_incompletos=</span><span class="fu">c</span>(<span class="fu">sum</span>(<span class="sc">!</span><span class="fu">complete.cases</span>(model_data)))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  todos casos_completos casos_incompletos
+1  1845            1688               157</code></pre>
+</div>
+</div>
+</section>
+<section id="cantidad-de-variables" class="level3">
+<h3 class="anchored" data-anchor-id="cantidad-de-variables">Cantidad de variables</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(mega_analysis)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] "Has_Phone_ToFix"                  "Group"                           
+  [3] "Age"                              "Gender_ToFix"                    
+  [5] "Feel_Distant"                     "Feel_Close"                      
+  [7] "Has_Phone"                        "Gender"                          
+  [9] "Emotional_Valance_Std"            "Feel_Distant_Std"                
+ [11] "Feel_Close_Std"                   "SocialConnection"                
+ [13] "SocialConnection_Std"             "Phone_Use_During_Work"           
+ [15] "Phone_Use_During_Entertain"       "Phone_Use_During_SocMedia"       
+ [17] "Phone_Use_During_Socialize"       "Valence"                         
+ [19] "Phone_Use_Frequency"              "Phone_Use_Frequency_Std"         
+ [21] "Distracted"                       "Concentrated"                    
+ [23] "ConcentratedR"                    "DistractComb"                    
+ [25] "DistractComb_Std"                 "Phone_Status_During"             
+ [27] "Gender_Other"                     "Affect_Pleasant"                 
+ [29] "Affect_Awake"                     "Affect_AtRest"                   
+ [31] "Affect_Unpleasant"                "Affect_Sleepy"                   
+ [33] "Affect_Restless"                  "Affect_Good"                     
+ [35] "Affect_Alert"                     "Affect_Relaxed"                  
+ [37] "Affect_Bad"                       "Affect_Tired"                    
+ [39] "Affect_Tense"                     "Affect_Positive"                 
+ [41] "Affect_Wakeful"                   "Affect_Calm"                     
+ [43] "Affect_Negative"                  "Affect_Drowsy"                   
+ [45] "Affect_Jittery"                   "Emotional_Valance"               
+ [47] "Ethnicity"                        "Phone_Dependence_Integrated"     
+ [49] "Phone_Dependence_Entertainment"   "Phone_Dependence_Distraction"    
+ [51] "Phone_Dependence_Idle"            "Phone_Dependence_Alone_Social"   
+ [53] "Phone_Dependence_Enviornment"     "Phone_Dependence_Awkward"        
+ [55] "Phone_Dependence_Orginize"        "Phone_Dependence_Various"        
+ [57] "Phone_Dependence_Dependent"       "Phone_Dependence_Extension_Self" 
+ [59] "Positive_Valance"                 "PhoneDependence"                 
+ [61] "IsBlack"                          "IsAsian"                         
+ [63] "IsFirstNation"                    "IsHispanic"                      
+ [65] "IsMiddleEastern"                  "IsMultiRacial"                   
+ [67] "IsOtherRace"                      "Use_Phone_During"                
+ [69] "Use_Phone_Rater"                  "Affect_Self_Sufficient"          
+ [71] "Affect_Independent"               "Negative_Valence"                
+ [73] "Ethincity_Other"                  "Own_Phone"                       
+ [75] "Phone_Waiting_Talk"               "Phone_Waiting_Weather"           
+ [77] "Phone_Waiting_Texting"            "Phone_Waiting_Email"             
+ [79] "Phone_Waiting_Calender"           "Phone_Waiting_Surfing"           
+ [81] "Phone_Waiting_SocMedia"           "Phone_Waiting_News"              
+ [83] "Phone_Waiting_Sports"             "Phone_Waiting_Financial"         
+ [85] "Phone_Waiting_Dating"             "Phone_Waiting_Gaming"            
+ [87] "Phone_Waiting_Other"              "Phone_Waiting_Other_Text"        
+ [89] "Is_Alone"                         "Condition1XCondition2"           
+ [91] "Affect_Frustrated"                "Affect_Angry"                    
+ [93] "Affect_Irritable"                 "WaitingOriginal"                 
+ [95] "Phone_Use_Frequency_Fixed"        "Affect_UnpleasantR"              
+ [97] "Affect_BadR"                      "Affect_NegativeR"                
+ [99] "Phone_Interruption"               "Phone_Interruption_Std"          
+[101] "Phone_Type"                       "Phone_Type_Other"                
+[103] "Condition_Success_USENOUSE"       "ExclusionReasons"                
+[105] "Other_Ethnicity"                  "Difficulty_locating.building"    
+[107] "Social.Interactions_#"            "Phone.use_1_useful"              
+[109] "Phone.use_2_pleasant"             "TechDirections"                  
+[111] "Affect_PositiveValence"           "LunchStudy"                      
+[113] "NormalUse"                        "UseType_4"                       
+[115] "TechRestaurant"                   "DistractedR"                     
+[117] "Waiting_Alone"                    "WaitingReplication"              
+[119] "Waiting_Together"                 "Nomal_mobile_phone_use_frequency"
+[121] "ScienceWorld"                     "PhoneDependence_Std"             
+[123] "StudyCombined"                    "ParadigmsCombined"               
+[125] "StrongTies"                       "ParadigmsCombined_Factor"        </code></pre>
+</div>
+</div>
+</section>
+<section id="número-de-observaciones-por-paradigma-y-condición" class="level3">
+<h3 class="anchored" data-anchor-id="número-de-observaciones-por-paradigma-y-condición">Número de observaciones por paradigma y condición</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mega_analysis <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(Has_Phone) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ParadigmsCombined_Factor) <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">phone =</span> <span class="fu">sum</span>(Has_Phone<span class="sc">==</span><span class="st">"Phone"</span>), <span class="at">no_phone=</span><span class="fu">sum</span>(Has_Phone<span class="sc">==</span><span class="st">"No Phone"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dif=</span><span class="fu">abs</span>(phone<span class="sc">-</span>no_phone))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  ParadigmsCombined_Factor phone no_phone   dif
+  &lt;fct&gt;                    &lt;int&gt;    &lt;int&gt; &lt;int&gt;
+1 Tech Directions            141      139     2
+2 Strong Ties Meal           152      153     1
+3 Waiting Room Alone          60       70    10
+4 Waiting Room Together      201      176    25
+5 Parents with Childen       194      214    20
+6 Weak Ties Meal             136      135     1</code></pre>
+</div>
+</div>
+</section>
+<section id="tabla-2" class="level3">
+<h3 class="anchored" data-anchor-id="tabla-2">Tabla 2</h3>
+<section id="modelo" class="level4">
+<h4 class="anchored" data-anchor-id="modelo">Modelo</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>mega_analysis_complete <span class="ot">&lt;-</span> mega_analysis[<span class="fu">complete.cases</span>(mega_analysis[, <span class="fu">c</span>(<span class="st">"SocialConnection_Std"</span>, <span class="st">"Age"</span>, <span class="st">"Has_Phone"</span>, <span class="st">"Gender"</span>, <span class="st">"ParadigmsCombined_Factor"</span>)]),]</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(mega_analysis_complete<span class="sc">$</span>ParadigmsCombined_Factor) <span class="ot">=</span> <span class="fu">contr.sum</span>(<span class="dv">6</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>SocInitial <span class="ot">&lt;-</span> <span class="fu">lm</span>(SocialConnection_Std <span class="sc">~</span>Age <span class="sc">+</span> Has_Phone<span class="sc">*</span>Gender <span class="sc">+</span>Has_Phone<span class="sc">*</span>ParadigmsCombined_Factor, mega_analysis_complete)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>modelo_ini_resumen <span class="ot">&lt;-</span> <span class="fu">summary</span>(SocInitial)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>modelo_ini_betas <span class="ot">&lt;-</span> lm.beta<span class="sc">::</span><span class="fu">lm.beta</span>(SocInitial)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>modelo_ini_ci <span class="ot">&lt;-</span> <span class="fu">confint</span>(SocInitial)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>modelo_ini_resumen</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = SocialConnection_Std ~ Age + Has_Phone * Gender + 
+    Has_Phone * ParadigmsCombined_Factor, data = mega_analysis_complete)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.6054 -0.6324  0.1604  0.6958  4.3158 
+
+Coefficients:
+                                          Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)                               0.012566   0.107682   0.117  0.90712
+Age                                       0.003708   0.004123   0.899  0.36863
+Has_PhonePhone                           -0.139484   0.059277  -2.353  0.01873
+GenderMale                                0.021224   0.072725   0.292  0.77045
+ParadigmsCombined_Factor1                 0.124210   0.078903   1.574  0.11563
+ParadigmsCombined_Factor2                -0.092528   0.080615  -1.148  0.25123
+ParadigmsCombined_Factor3                -0.058542   0.105167  -0.557  0.57784
+ParadigmsCombined_Factor4                -0.030034   0.072188  -0.416  0.67743
+ParadigmsCombined_Factor5                 0.037924   0.084228   0.450  0.65259
+Has_PhonePhone:GenderMale                -0.314521   0.103991  -3.025  0.00253
+Has_PhonePhone:ParadigmsCombined_Factor1 -0.210155   0.107879  -1.948  0.05157
+Has_PhonePhone:ParadigmsCombined_Factor2  0.161873   0.110520   1.465  0.14321
+Has_PhonePhone:ParadigmsCombined_Factor3  0.111533   0.151008   0.739  0.46026
+Has_PhonePhone:ParadigmsCombined_Factor4  0.113894   0.096877   1.176  0.23990
+Has_PhonePhone:ParadigmsCombined_Factor5 -0.167931   0.094695  -1.773  0.07634
+                                           
+(Intercept)                                
+Age                                        
+Has_PhonePhone                           * 
+GenderMale                                 
+ParadigmsCombined_Factor1                  
+ParadigmsCombined_Factor2                  
+ParadigmsCombined_Factor3                  
+ParadigmsCombined_Factor4                  
+ParadigmsCombined_Factor5                  
+Has_PhonePhone:GenderMale                **
+Has_PhonePhone:ParadigmsCombined_Factor1 . 
+Has_PhonePhone:ParadigmsCombined_Factor2   
+Has_PhonePhone:ParadigmsCombined_Factor3   
+Has_PhonePhone:ParadigmsCombined_Factor4   
+Has_PhonePhone:ParadigmsCombined_Factor5 . 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.968 on 1673 degrees of freedom
+Multiple R-squared:  0.03059,   Adjusted R-squared:  0.02248 
+F-statistic: 3.771 on 14 and 1673 DF,  p-value: 2.641e-06</code></pre>
+</div>
+</div>
+</section>
+<section id="supuestos" class="level4">
+<h4 class="anchored" data-anchor-id="supuestos">Supuestos</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)); <span class="fu">plot</span>(SocInitial); <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="reproduccion_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="tamaño-de-efecto" class="level4">
+<h4 class="anchored" data-anchor-id="tamaño-de-efecto">Tamaño de efecto</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">eta_squared</span>(SocInitial, <span class="at">partial =</span> <span class="cn">TRUE</span>, <span class="at">ci =</span> <span class="fl">0.95</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Effect Size for ANOVA (Type I)
+
+Parameter                          | Eta2 (partial) |       95% CI
+------------------------------------------------------------------
+Age                                |       1.46e-04 | [0.00, 0.00]
+Has_Phone                          |           0.02 | [0.01, 0.03]
+Gender                             |       3.84e-03 | [0.00, 0.01]
+ParadigmsCombined_Factor           |       4.39e-04 | [0.00, 0.00]
+Has_Phone:Gender                   |       5.31e-03 | [0.00, 0.01]
+Has_Phone:ParadigmsCombined_Factor |       5.68e-03 | [0.00, 0.01]</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">omega_squared</span>(SocInitial, <span class="at">partial =</span> <span class="cn">TRUE</span>, <span class="at">ci =</span> <span class="fl">0.95</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Effect Size for ANOVA (Type I)
+
+Parameter                          | Omega2 (partial) |       95% CI
+--------------------------------------------------------------------
+Age                                |             0.00 | [0.00, 0.00]
+Has_Phone                          |             0.02 | [0.01, 0.03]
+Gender                             |         3.22e-03 | [0.00, 0.01]
+ParadigmsCombined_Factor           |             0.00 | [0.00, 0.00]
+Has_Phone:Gender                   |         4.68e-03 | [0.00, 0.01]
+Has_Phone:ParadigmsCombined_Factor |         2.70e-03 | [0.00, 0.01]</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cohens_f_squared</span>(SocInitial, <span class="at">partial =</span> <span class="cn">TRUE</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Effect Size for ANOVA (Type I)
+
+Parameter                          | Cohen's f2 (partial) |       95% CI
+------------------------------------------------------------------------
+Age                                |             1.46e-04 | [0.00, 0.00]
+Has_Phone                          |                 0.02 | [0.01, 0.03]
+Gender                             |             3.86e-03 | [0.00, 0.01]
+ParadigmsCombined_Factor           |             4.39e-04 | [0.00, 0.00]
+Has_Phone:Gender                   |             5.34e-03 | [0.00, 0.01]
+Has_Phone:ParadigmsCombined_Factor |             5.72e-03 | [0.00, 0.01]</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>tabla2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">beta=</span><span class="fu">round</span>(modelo_ini_betas<span class="sc">$</span>standardized.coefficients,<span class="dv">2</span>),</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">b=</span><span class="fu">round</span>(modelo_ini_resumen<span class="sc">$</span>coefficients[,<span class="st">"Estimate"</span>],<span class="dv">2</span>),</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">b_ic_low=</span><span class="fu">round</span>(modelo_ini_ci[,<span class="dv">1</span>],<span class="dv">2</span>), </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">b_ic_high=</span><span class="fu">round</span>(modelo_ini_ci[,<span class="dv">2</span>],<span class="dv">2</span>), </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">t=</span><span class="fu">round</span>(modelo_ini_resumen<span class="sc">$</span>coefficients[,<span class="st">"t value"</span>],<span class="dv">2</span>),</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">stars=</span><span class="fu">ifelse</span>(modelo_ini_resumen<span class="sc">$</span>coefficients[,<span class="st">"Pr(&gt;|t|)"</span>]<span class="sc">&lt;</span><span class="fl">0.01</span>, <span class="st">"**"</span>, <span class="fu">ifelse</span>(modelo_ini_resumen<span class="sc">$</span>coefficients[,<span class="st">"Pr(&gt;|t|)"</span>]<span class="sc">&lt;</span><span class="fl">0.05</span>, <span class="st">"*"</span>, <span class="st">""</span>)))</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(tabla2) <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"(Intercept)"</span>, </span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Age"</span>, </span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Condition (phone=1, no-phone=0)"</span>, </span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Gender (man=1, woman=0)"</span>,</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Getting directions"</span>,</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Strong ties meal"</span>,</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Waiting alone"</span>,</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Waiting together"</span>,</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Parents with children"</span>,</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Condition x Gender"</span>,</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Condition x Getting directions"</span>,</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Condition x Strong ties meal"</span>,</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Condition x Waiting alone"</span>,</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Condition x Waiting together"</span>,</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Condition x Parents with children"</span>)</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tabla2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                   beta     b b_ic_low b_ic_high     t stars
+(Intercept)                          NA  0.01    -0.20      0.22  0.12      
+Age                                0.04  0.00     0.00      0.01  0.90      
+Condition (phone=1, no-phone=0)   -0.07 -0.14    -0.26     -0.02 -2.35     *
+Gender (man=1, woman=0)            0.01  0.02    -0.12      0.16  0.29      
+Getting directions                 0.07  0.12    -0.03      0.28  1.57      
+Strong ties meal                  -0.05 -0.09    -0.25      0.07 -1.15      
+Waiting alone                     -0.03 -0.06    -0.26      0.15 -0.56      
+Waiting together                  -0.02 -0.03    -0.17      0.11 -0.42      
+Parents with children              0.02  0.04    -0.13      0.20  0.45      
+Condition x Gender                -0.11 -0.31    -0.52     -0.11 -3.02    **
+Condition x Getting directions    -0.09 -0.21    -0.42      0.00 -1.95      
+Condition x Strong ties meal       0.07  0.16    -0.05      0.38  1.46      
+Condition x Waiting alone          0.04  0.11    -0.18      0.41  0.74      
+Condition x Waiting together       0.05  0.11    -0.08      0.30  1.18      
+Condition x Parents with children -0.07 -0.17    -0.35      0.02 -1.77      </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="forest-plot" class="level3">
+<h3 class="anchored" data-anchor-id="forest-plot">Forest Plot</h3>
+<section id="datos-crudos" class="level4">
+<h4 class="anchored" data-anchor-id="datos-crudos">Datos crudos</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>ds <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">levels</span>(mega_analysis<span class="sc">$</span>ParadigmsCombined_Factor), <span class="cf">function</span>(paradigm) {</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">&lt;-</span> mega_analysis <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(ParadigmsCombined_Factor <span class="sc">==</span> paradigm) <span class="sc">%&gt;%</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cohens_d</span>(SocialConnection_Std <span class="sc">~</span> Has_Phone, <span class="at">data =</span> .)   </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  gd <span class="ot">&lt;-</span> mega_analysis <span class="sc">%&gt;%</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(ParadigmsCombined_Factor <span class="sc">==</span> paradigm) <span class="sc">%&gt;%</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">glass_delta</span>(SocialConnection_Std <span class="sc">~</span> Has_Phone, <span class="at">data =</span> .)   </span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(d<span class="sc">$</span>Cohens_d,<span class="dv">2</span>), </span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(d<span class="sc">$</span>CI,<span class="dv">2</span>), </span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(d<span class="sc">$</span>CI_low,<span class="dv">2</span>), </span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(d<span class="sc">$</span>CI_high,<span class="dv">2</span>), </span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(gd<span class="sc">$</span>Glass_delta_adjusted, <span class="dv">2</span>), </span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(gd<span class="sc">$</span>CI_low, <span class="dv">2</span>),</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(gd<span class="sc">$</span>CI_high, <span class="dv">2</span>)</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a> )</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Missing values detected. NAs dropped.
+Warning: Missing values detected. NAs dropped.
+Warning: Missing values detected. NAs dropped.
+Warning: Missing values detected. NAs dropped.
+Warning: Missing values detected. NAs dropped.
+Warning: Missing values detected. NAs dropped.
+Warning: Missing values detected. NAs dropped.
+Warning: Missing values detected. NAs dropped.
+Warning: Missing values detected. NAs dropped.
+Warning: Missing values detected. NAs dropped.
+Warning: Missing values detected. NAs dropped.
+Warning: Missing values detected. NAs dropped.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(ds) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"d"</span>, <span class="st">"dCI"</span>, <span class="st">"dCIl"</span>, <span class="st">"dCIh"</span>, <span class="st">"gd"</span>, <span class="st">"gdCIl"</span>, <span class="st">"gdCIh"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>ds <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">t</span>(ds))</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>ds<span class="sc">$</span>Paradigma <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rownames</span>(ds), <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"Tech Directions"</span>, <span class="st">"Parents with Childen"</span>,<span class="st">"Strong Ties Meal"</span>,<span class="st">"Weak Ties Meal"</span>, <span class="st">"Waiting Room Alone"</span>, <span class="st">"Waiting Room Together"</span>), <span class="at">ordered =</span> T)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>ds</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                         d  dCI  dCIl dCIh   gd gdCIl gdCIh
+Tech Directions       0.45 0.95  0.21 0.69 0.46  0.21  0.71
+Strong Ties Meal      0.18 0.95 -0.05 0.40 0.17 -0.04  0.38
+Waiting Room Alone    0.13 0.95 -0.22 0.48 0.13 -0.23  0.49
+Waiting Room Together 0.13 0.95 -0.08 0.33 0.12 -0.07  0.32
+Parents with Childen  0.43 0.95  0.23 0.63 0.38  0.20  0.55
+Weak Ties Meal        0.20 0.95 -0.04 0.44 0.20 -0.03  0.43
+                                  Paradigma
+Tech Directions             Tech Directions
+Strong Ties Meal           Strong Ties Meal
+Waiting Room Alone       Waiting Room Alone
+Waiting Room Together Waiting Room Together
+Parents with Childen   Parents with Childen
+Weak Ties Meal               Weak Ties Meal</code></pre>
+</div>
+</div>
+</section>
+<section id="gráfico" class="level4">
+<h4 class="anchored" data-anchor-id="gráfico">Gráfico</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>ds, <span class="fu">aes</span>(<span class="at">xmin=</span>dCIl, <span class="at">xmax=</span>dCIh, <span class="at">x=</span>d, <span class="at">y=</span>Paradigma)) <span class="sc">+</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">xmin=</span>dCIl, <span class="at">xmax=</span>dCIh), <span class="at">width=</span><span class="fl">0.1</span> )<span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> d), <span class="at">nudge_y =</span> <span class="fl">0.2</span>, <span class="at">check_overlap =</span> <span class="cn">TRUE</span>)<span class="sc">+</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"d de Cohen por Paradigma"</span>, <span class="at">subtitle =</span> <span class="st">"Sin teléfono vs Con teléfono"</span>)<span class="sc">+</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="reproduccion_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
